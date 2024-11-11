@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-const Screen01 = () => {
+const Screen01 = ({navigation}) => {
   return (
     <View
       style={{
@@ -40,7 +40,9 @@ const Screen01 = () => {
             width: 120,
             padding: 10,
             borderRadius: 15,
-          }}>
+          }}
+          onPress={()=>navigation.navigate('Screen02')}
+          >
           <Text style={{ color: 'white', alignSelf: 'center' }}>
             Get Started
           </Text>
