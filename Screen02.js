@@ -8,8 +8,8 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import {useEffect} from 'react'
-import {fetchAllUsers} from '../redux/reducer'
+import { useEffect } from 'react';
+import { fetchAllUsers } from '../redux/reducer';
 import { useDispatch, useSelector } from 'react-redux';
 const datas = [
   {
@@ -50,33 +50,36 @@ const datas = [
   },
 ];
 
-const Item = ({ image, name, price }) => {
-  
+const Item = ({ image, name, price, navigation ,userData }) => {
   return (
-    <TouchableOpacity>
-    <View style={{ padding: 10 }}>
-      <View
-        style={{ backgroundColor: '#F7BA8326', padding: 10, borderRadius: 12 }}>
-        <Image source={image} style={{ width: 135, height: 127 }} />
+    <TouchableOpacity onPress={() => navigation.navigate('Screen03',{ user: userData })}>
+      <View style={{ padding: 10 }}>
+        <View
+          style={{
+            backgroundColor: '#F7BA8326',
+            padding: 10,
+            borderRadius: 12,
+          }}>
+          <Image source={image} style={{ width: 135, height: 127 }} />
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{name}</Text>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ fontSize: 15, color: 'red' }}>{price}</Text>
+        </View>
       </View>
-      <View style={{ alignItems: 'center' }}>
-        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{name}</Text>
-      </View>
-      <View style={{ alignItems: 'center' }}>
-        <Text style={{ fontSize: 15, color: 'red' }}>{price}</Text>
-      </View>
-    </View>
     </TouchableOpacity>
   );
 };
-const Screen02 = () => {
- const dispatch = useDispatch();
+const Screen02 = ({ navigation }) => {
+  const dispatch = useDispatch();
 
-    // Get the data from Redux store
+  // Get the data from Redux store
   const { users, loading, error } = useSelector((state) => state.counter); // Correct the typo from state.couter to state.counter
-     useEffect(() => {
+  useEffect(() => {
     dispatch(fetchAllUsers());
-     // Fetch all users khi component mount
+    // Fetch all users khi component mount
   }, [dispatch]);
   return (
     <View>
@@ -119,18 +122,23 @@ const Screen02 = () => {
           </Text>
         </TouchableOpacity>
       </View>
-     
-        <View style={{ padding: 10, alignSelf: 'center' }}>
-          <FlatList
-            data={users}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            renderItem={({ item }) => (
-              <Item image={item.image} name={item.name} price={item.price} />
-            )}
-          />
-        </View>
-      
+
+      <View style={{ padding: 10, alignSelf: 'center' }}>
+        <FlatList
+          data={users}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <Item
+              image={item.image}
+              name={item.name}
+              price={item.price}
+              userData={item} 
+              navigation={navigation}
+            />
+          )}
+        />
+      </View>
     </View>
   );
 };

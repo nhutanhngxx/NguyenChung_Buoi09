@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-const Screen01 = () => {
+const Screen01 = ({route,navigation}) => {
+  const { user } = route.params;
   return (
     <View
       style={{
@@ -16,16 +17,16 @@ const Screen01 = () => {
         padding: 10,
       }}>
       <View
-        style={{ backgroundColor: '#E941411A', padding: 10, borderRadius: 20 }}>
-        <Image source={require('../bifour_-removebg-preview.png')} />
+        style={{ backgroundColor: '#E941411A', padding: 10, borderRadius: 20,alignItems:'center' }}>
+        <Image source={user.image} style={{width:135,height:127}} />
       </View>
       <View style={{  }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-         Pina Mountain
+         {user.name}
         </Text>
         <View style={{flexDirection:'row',}} >
           <Text>15% OFF I 350$</Text>
-          <Text>449$</Text>
+          <Text>{user.price}</Text>
         </View>
         <View style={{}} >
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Description</Text>
@@ -39,7 +40,7 @@ const Screen01 = () => {
           alignItems: 'center',
         }}>
         <View>
-          <Image source={require('../akaricons_heart.png')} />
+          <Image source={require('../akaricons_heart.png')}  />
         </View>
         <TouchableOpacity
           style={{
@@ -47,7 +48,9 @@ const Screen01 = () => {
             width: 120,
             padding: 10,
             borderRadius: 15,
-          }}>
+          }}
+          onPress={()=>navigation.navigate('Screen02')}
+          >
           <Text style={{ color: 'white', alignSelf: 'center' }}>
             Add to Card
           </Text>
