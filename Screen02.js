@@ -75,16 +75,14 @@ const Item = ({ image, name, price, navigation ,userData }) => {
 const Screen02 = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  // Get the data from Redux store
-  const { users, loading, error } = useSelector((state) => state.counter); // Correct the typo from state.couter to state.counter
+  const { users, loading, error } = useSelector((state) => state.counter); 
   useEffect(() => {
     dispatch(fetchAllUsers());
-    // Fetch all users khi component mount
   }, [dispatch]);
   return (
     <View>
-      <View>
-        <Text>The world's Best Bike</Text>
+      <View style={{marginBottom:20}}>
+        <Text style={{fontSize:18,fontWeight:'600',color:'red'}}>The world's Best Bike</Text>
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <TouchableOpacity
